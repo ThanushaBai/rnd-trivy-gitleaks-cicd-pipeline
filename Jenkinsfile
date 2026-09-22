@@ -19,12 +19,12 @@ pipeline {
                 echo 'Scanning for secrets with Gitleaks...'
                 sh '''
                     docker run --rm \
-                        -v "$WORKSPACE:/src" \
-                ghcr.io/gitleaks/gitleaks:latest \
-                dir /src \
-                --verbose \
-                --redact \
-                --exit-code=1
+                        -v "/var/lib/docker/volumes/jenkins_jenkins_home/_data/workspace/sample-app-pipeline:/src" \
+                        ghcr.io/gitleaks/gitleaks:latest \
+                        dir /src \
+                        --verbose \
+                        --redact \
+                        --exit-code=1
                 '''
             }
         }
