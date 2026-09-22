@@ -36,6 +36,23 @@ pipeline {
             }
         }
 
+        stage('Trivy Image Scan') {
+            steps {
+                echo 'Scanning image for vulnerabilities with Trivy...'
+                sh '''
+                    docker run --rm \
+                        -v /var/run/docker.sock:/var/run/docker.sock \
+                        -v trivy-cache:/root/.cache/ \
+                        aquasec/trivy:latest \
+                        image \
+                        --severity HIGH,CRITICAL \
+                        --exit-code 1 \
+                        --no-progress \
+                        ${IMAGE_NAME}:${IMAGE_TAG}
+                '''
+            }
+        }
+
         stage('Verify Image') {
             steps {
                 echo 'Verifying image runs correctly...'
