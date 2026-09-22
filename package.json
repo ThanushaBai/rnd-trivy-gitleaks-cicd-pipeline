@@ -1,0 +1,10 @@
+{
+  "name": "sample-app",
+  "version": "1.0.0",
+  "description": "Sample app for Trivy + Gitleaks CI/CD pipeline PoC",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "license": "MIT"
+}
