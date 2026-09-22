@@ -20,12 +20,11 @@ pipeline {
                 sh '''
                     docker run --rm \
                         -v "$WORKSPACE:/src" \
-                        zricethezav/gitleaks:latest \
-                        detect \
-                        --source="/src" \
-                        --verbose \
-                        --redact \
-                        --exit-code=1
+                ghcr.io/gitleaks/gitleaks:latest \
+                dir /src \
+                --verbose \
+                --redact \
+                --exit-code=1
                 '''
             }
         }
