@@ -14,6 +14,22 @@ pipeline {
             }
         }
 
+        stage('Gitleaks Secret Scan') {
+            steps {
+                echo 'Scanning for secrets with Gitleaks...'
+                sh '''
+                    docker run --rm \
+                        -v "$WORKSPACE:/src" \
+                        zricethezav/gitleaks:latest \
+                        detect \
+                        --source="/src" \
+                        --verbose \
+                        --redact \
+                        --exit-code=1
+                '''
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 echo "Building Docker image ${IMAGE_NAME}:${IMAGE_TAG}..."
